@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
 
 temp_dir = tempfile.TemporaryDirectory()
-app.config['UPLOAD_FOLDER'] = temp_dir.name
+app.config['UPLOAD_FOLDER'] = temp_dir.name 
 
 bootstrap = Bootstrap(app)
 os.environ["OPENAI_API_KEY"] = "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"
