@@ -1,4 +1,5 @@
 import os
+import shutil
 from flask import Flask, jsonify, render_template, request, flash, redirect, send_file, url_for
 from flask_bootstrap import Bootstrap
 from llama_index import SimpleDirectoryReader, GPTListIndex, readers, GPTSimpleVectorIndex, LLMPredictor, PromptHelper, ServiceContext
@@ -8,10 +9,13 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from werkzeug.utils import secure_filename
+import tempfile
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
-app.config['UPLOAD_FOLDER'] = 'uploads'
+
+temp_dir = tempfile.TemporaryDirectory()
+app.config['UPLOAD_FOLDER'] = temp_dir.name
 
 bootstrap = Bootstrap(app)
 os.environ["OPENAI_API_KEY"] = "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"
@@ -40,7 +44,14 @@ def construct_index(directory_path):
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
     index = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
 
-    index.save_to_disk('index.json')
+    # index.save_to_disk('index.json')
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        index.save_to_disk(os.path.join(temp_dir, 'index.json'))
+
+        # After saving, copy the index.json to your app's upload folder
+        index_json_path = os.path.join(temp_dir, 'index.json')
+        shutil.copy(index_json_path, app.config['UPLOAD_FOLDER'])
 
     return index
 
@@ -114,19 +125,18 @@ def upload_file():
 
         uploaded_filenames = upload_files(request.files)
 
-        if not uploaded_filenames and 'link' not in request.form:
-            flash('No selected file or link', 'error')
-            return redirect(request.url)
+    if not uploaded_filenames and 'link' not in request.form:
+        flash('No selected file or link', 'error')
+        return redirect(request.url)
 
-        
-        link = request.form.get('link', '')
-        if link:
-            extracted_text = extract_text_from_webpage(link)
-            flash(f'Link uploaded successfully!', 'success')
-            if extracted_text:
-                save_text_to_file(extracted_text, "uploads/link_content.txt")
+    link = request.form.get('link', '')
+    if link:
+        extracted_text = extract_text_from_webpage(link)
+        flash(f'Link uploaded successfully!', 'success')
+        if extracted_text:
+            save_text_to_file(extracted_text, os.path.join(temp_dir.name, "link_content.txt"))
 
-        construct_index("uploads")
+    construct_index(temp_dir.name)  # Use the temporary directory
 
     return redirect(url_for('index'))
 
@@ -170,7 +180,7 @@ def delete_uploaded_file(filename):
     if os.path.exists(file_path):
         try:
             os.remove(file_path)
-            construct_index("uploads")  # Call construct_index function after file deletion
+            construct_index(temp_dir.name)  # Call construct_index function after file deletion
             return "File deleted successfully!"
         except Exception as e:
             return f"Error occurred while deleting the file: {e}"
@@ -236,6 +246,6 @@ def allowed_file(filename):
 
 
 if __name__ == '__main__':
-    from werkzeug.utils import secure_filename
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
-    app.run(debug=True)
+    
