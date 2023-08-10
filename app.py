@@ -18,7 +18,7 @@ temp_dir = tempfile.TemporaryDirectory()
 app.config['UPLOAD_FOLDER'] = temp_dir.name
 
 bootstrap = Bootstrap(app)
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 query = ""  # Variable to store the user's question
@@ -47,20 +47,28 @@ def construct_index(directory_path):
     # index.save_to_disk('index.json')
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        index.save_to_disk(os.path.join(temp_dir, 'index.json'))
+        index.save_to_disk(os.path.join(directory_path, 'index.json'))
+
+              # index.json in temp path
+        print(os.path.join(temp_dir, 'index.json'))
 
         # After saving, copy the index.json to your app's upload folder
-        index_json_path = os.path.join(temp_dir, 'index.json')
-        shutil.copy(index_json_path, app.config['UPLOAD_FOLDER'])
+        # index_json_path = os.path.join(temp_dir, 'index.json')    
+        # shutil.copy(index_json_path, app.config['UPLOAD_FOLDER'])
+
+
+
+       
 
     return index
 
 
 
 def ask_ai(query):
-    index = GPTSimpleVectorIndex.load_from_disk('index.json')
+    index = GPTSimpleVectorIndex.load_from_disk(os.path.join(app.config['UPLOAD_FOLDER'], 'index.json'))
     response = index.query(query)
     return response
+
 
 def extract_text_from_webpage(url):
     try:
@@ -105,6 +113,16 @@ conversation_history_cb = []
     
 @app.route('/')
 def index():
+
+     # Temp path
+    print(temp_dir.name)
+
+    
+
+        
+        # Uploads in temp path
+    print(['UPLOAD_FOLDER'])  
+
     global conversation_history  # Allow access to the global conversation history variable
 
     uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
@@ -167,12 +185,12 @@ def download_index():
     except Exception as e:
         return f"Error occurred while downloading the file: {e}"
 
-def delete_file(filename):
-    try:
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return "File deleted successfully!"
-    except Exception as e:
-        return f"Error occurred while deleting the file: {e}"
+# def delete_file(filename):
+#     try:
+#         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#         return "File deleted successfully!"
+#     except Exception as e:
+#         return f"Error occurred while deleting the file: {e}"
 
 @app.route('/delete/<string:filename>', methods=['GET'])
 def delete_uploaded_file(filename):
@@ -247,5 +265,3 @@ def allowed_file(filename):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
-
-    
