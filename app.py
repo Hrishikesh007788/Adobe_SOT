@@ -1,9 +1,8 @@
 import os
-from flask import Flask, jsonify, render_template, request, flash, redirect, send_file, url_for
+from flask import Flask, render_template, request, flash, redirect, send_file, url_for
 from flask_bootstrap import Bootstrap
 from llama_index import SimpleDirectoryReader, GPTListIndex, readers, GPTSimpleVectorIndex, LLMPredictor, PromptHelper, ServiceContext
 from langchain import OpenAI
-import sys
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -14,7 +13,7 @@ app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 bootstrap = Bootstrap(app)
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 query = ""  # Variable to store the user's question
@@ -157,12 +156,7 @@ def download_index():
     except Exception as e:
         return f"Error occurred while downloading the file: {e}"
 
-def delete_file(filename):
-    try:
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return "File deleted successfully!"
-    except Exception as e:
-        return f"Error occurred while deleting the file: {e}"
+
 
 @app.route('/delete/<string:filename>', methods=['GET'])
 def delete_uploaded_file(filename):
@@ -236,6 +230,6 @@ def allowed_file(filename):
 
 
 if __name__ == '__main__':
-    from werkzeug.utils import secure_filename
+   
 
     app.run(debug=True)
