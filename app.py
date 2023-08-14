@@ -10,6 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 from werkzeug.utils import secure_filename
 import tempfile
+import openai
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
@@ -18,12 +19,16 @@ temp_dir = tempfile.TemporaryDirectory()
 app.config['UPLOAD_FOLDER'] = temp_dir.name
 
 bootstrap = Bootstrap(app)
-os.environ["OPENAI_API_KEY"] = "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"
+
+
+os.environ["OPENAI_API_KEY"] = ''
 
 
 query = ""  # Variable to store the user's question
 
 def construct_index(directory_path):
+
+    openai.api_key = ""
     # set maximum input size
     max_input_size = 4096
     # set number of output tokens
@@ -89,7 +94,7 @@ def extract_text_from_webpage(url):
     
 def save_text_to_file(text, filename):
     try:
-        with open(filename, 'a', encoding='utf-8') as file:  # Use 'a' for append mode
+        with open(filename, 'a', encoding='utf-8') as file:  
             file.write(text)
         print(f"Text has been appended to {filename}")
     except Exception as e:
@@ -192,18 +197,39 @@ def download_index():
 #     except Exception as e:
 #         return f"Error occurred while deleting the file: {e}"
 
-@app.route('/delete/<string:filename>', methods=['GET'])
+# @app.route('/delete/<string:filename>', methods=['GET'])
+# def delete_uploaded_file(filename):
+#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#     if os.path.exists(file_path):
+#         try:
+#             os.remove(file_path)
+#             construct_index(temp_dir.name)  # Call construct_index function after file deletion
+#             return "File deleted successfully!"
+#         except Exception as e:
+#             return f"Error occurred while deleting the file: {e}"
+#     else:
+#         return "File not found."
+    
+
+@app.route('/delete/<string:filename>', methods=['POST'])
 def delete_uploaded_file(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    if os.path.exists(file_path):
-        try:
-            os.remove(file_path)
-            construct_index(temp_dir.name)  # Call construct_index function after file deletion
-            return "File deleted successfully!"
-        except Exception as e:
-            return f"Error occurred while deleting the file: {e}"
-    else:
-        return "File not found."
+    if request.method == 'POST':
+        data = request.get_json()
+        if data and 'filename' in data:
+            filename = data['filename']
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            # Rest of the code remains the same
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                    construct_index(temp_dir.name)  # Call construct_index function after file deletion
+                    return "File deleted successfully!"
+                except Exception as e:
+                    return f"Error occurred while deleting the file: {e}"
+            else:
+                return "File not found."
+            
+        return redirect(url_for('index'))
 
 
 @app.route('/user_ask', methods=['POST', 'GET'])

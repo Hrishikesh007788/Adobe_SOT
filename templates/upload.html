@@ -1,392 +1,384 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <link
-        href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-        rel="stylesheet"
-      />
-      <!-- Add Source Sans Pro font -->
-      <link
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
-        rel="stylesheet"
-      />
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Add Source Sans Pro font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
 
-      <title>InfoMind</title>
+    <title>InfoMind</title>
 
-      <!-- Bootstrap CSS -->
-      <link
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        rel="stylesheet"
-      />
-      <!-- Font Awesome CSS -->
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        rel="stylesheet"
-      />
-      <link
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       rel="stylesheet"
     />
-      <!-- Animate.css -->
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-        rel="stylesheet"
-      />
-      
+    <!-- Animate.css -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
 
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          font-family: "Roboto", Arial, sans-serif;
-          margin-bottom: 100px;
-          font-size: 14px; 
-        }
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-family: "Roboto", Arial, sans-serif;
+        margin-bottom: 100px;
+        font-size: 14px;
+      }
 
-        .header {
-          background-color: #248dff;
-          color: #fff;
-          padding: 10px;
-        }
+      .header {
+        background-color: #248dff;
+        color: #fff;
+        padding: 10px;
+      }
 
-        .footer {
-          background-color: #f9f9f9;
-          font-size: smaller;
-          padding: 10px;
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-          border-top: 1px solid #ddd;
-          height: 45px;
-        }
+      .footer {
+        background-color: #f9f9f9;
+        font-size: smaller;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        height: 45px;
+      }
 
-        .footer p {
-          margin: 0;
-          margin-top: -20px;
-          /* text-align: left; */
-        }
+      .footer p {
+        margin: 0;
+        margin-top: -20px;
+        /* text-align: left; */
+      }
 
-        .header h1 {
-          margin: 0;
-        }
-        .container {
-          max-width: 65%;
-          margin: auto;
-          margin-top: 20px;
-        }
+      .header h1 {
+        margin: 0;
+      }
+      .container {
+        max-width: 65%;
+        margin: auto;
+        margin-top: 20px;
+      }
 
-        .row {
-          display: flex;
-          justify-content: space-between;
-        }
+      .row {
+        display: flex;
+        justify-content: space-between;
+      }
 
-        .col-md-6 {
-          flex-basis: 50%;
-        }
+      .col-md-6 {
+        flex-basis: 50%;
+      }
 
-        .header {
-          text-align: center;
-          margin-bottom: 40px;
-          padding-top: 20px;
-        }
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-top: 20px;
+      }
 
-        .upload-section,
-        .question-section {
-          padding: 20px;
-          
-          
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          margin-bottom: 10px;
+      .upload-section,
+      .question-section {
+        padding: 20px;
 
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          background-color: #fff;
-        }
-        
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
 
-        .upload-section {
-          margin: auto;
-          height: 50%;
-          width: 60%;
-        }
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
 
-        .upload-section h2,
-        .question-section h2 {
-          margin-top: 0;
-        }
+      .upload-section {
+        margin: auto;
+        height: 50%;
+        width: 60%;
+      }
 
-        .question-section .answer {
-          margin-top: 20px;
-          border-top: 1px solid #ddd;
-          padding-top: 10px;
-        }
+      .upload-section h2,
+      .question-section h2 {
+        margin-top: 0;
+      }
 
-        .submit-btn {
-          display: block;
-          width: 100%;
-          font-size: 0.8rem;
-        }
-        .btn-danger{
-          margin-left: 43px;
-          font-size: 0.65rem;
-          float: right;
-        }
+      .question-section .answer {
+        margin-top: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+      }
 
-        /* Add styles for conversation history container */
-        .conversation-history-container {
-          max-height: 250px; /* Set a fixed height for the container */
-          overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
-          margin-top: 20px; /* Add some spacing between the history and the form */
-          padding: 10px;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          background-color: #f9f9f9;
-        }
+      .submit-btn {
+        display: block;
+        width: 100%;
+        font-size: 0.8rem;
+      }
+      .btn-danger {
+        margin-left: 43px;
+        font-size: 0.65rem;
+        float: right;
+      }
 
-        /* Add styles for conversation history messages */
-        .message {
-          margin-bottom: 10px;
-        }
+      /* Add styles for conversation history container */
+      .conversation-history-container {
+        max-height: 250px; /* Set a fixed height for the container */
+        overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
+        margin-top: 20px; /* Add some spacing between the history and the form */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
 
-        .user {
-          background-color: #aeaeae;
-          padding: 8px;
-          border-radius: 5px;
-          margin-left: 40px;
-          font-size: smaller;
-        }
+      /* Add styles for conversation history messages */
+      .message {
+        margin-bottom: 10px;
+      }
 
-        .ai {
-          background-color: #248dff;
-          color: #fff;
-          padding: 8px;
-          border-radius: 5px;
-          margin-right: 40px;
-          font-size: smaller;
-        }
-        .chat-icon {
-          position: fixed;
-          bottom: 70px;
-          right: 20px;
-          font-size: 24px;
-          border-radius: 50%;
-          cursor: pointer;
-        }
+      .user {
+        background-color: #aeaeae;
+        padding: 8px;
+        border-radius: 5px;
+        margin-left: 40px;
+        font-size: smaller;
+      }
 
-        .chat-icon:hover {
-          
-          scale: 1.1;
-        }
+      .ai {
+        background-color: #248dff;
+        color: #fff;
+        padding: 8px;
+        border-radius: 5px;
+        margin-right: 40px;
+        font-size: smaller;
+      }
+      .chat-icon {
+        position: fixed;
+        bottom: 70px;
+        right: 20px;
+        font-size: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
 
-        /* "Ask a Question" Card */
-        #question-card {
-          display: none;
-          position: fixed;
-          bottom: 60px;
-          right: 60px;
-          width: 350px;
-          background-color: #ecebed;
-          border: 3px solid #ddd;
-          border-radius: 5px;
-          padding: 5px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-          transition: display 0.1s ease;
-        }
-        /* Add animation to buttons */
-        .submit-btn {
-          animation: fadeInUp 0.6s ease both;
-        }
+      .chat-icon:hover {
+        scale: 1.1;
+      }
 
-        /* Add animation to the answer section */
-        .answer {
-          animation: fadeIn 0.6s ease both;
-        }
+      /* "Ask a Question" Card */
+      #question-card {
+        display: none;
+        position: fixed;
+        bottom: 60px;
+        right: 60px;
+        width: 350px;
+        background-color: #ecebed;
+        border: 3px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: display 0.1s ease;
+      }
+      /* Add animation to buttons */
+      .submit-btn {
+        animation: fadeInUp 0.6s ease both;
+      }
 
-        #uploaded-files-card {
-          margin-left: 50px;
-        }
+      /* Add animation to the answer section */
+      .answer {
+        animation: fadeIn 0.6s ease both;
+      }
 
-        #upload-files-card {
+      #uploaded-files-card {
+        margin-left: 50px;
+      }
+
+      #upload-files-card {
         padding-bottom: 0%;
-          width: 90%;
-        }
-        #question {
-          margin-top: 15px;
-          /* border-radius: 50px; */
-          width: 333px;
-        }
-        #upload-link-section {
-          margin-top: 20px;
-          font-weight: bold;
-        }
-        .uploaded-files-section {
-          background-color: #f9f9f9;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          padding: 20px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          height: 250px;
-          overflow-y: auto;
-          width: 80%;
-        }
+        width: 90%;
+      }
+      #question {
+        margin-top: 15px;
+        /* border-radius: 50px; */
+        width: 333px;
+      }
+      #upload-link-section {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      .uploaded-files-section {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 250px;
+        overflow-y: auto;
+        width: 80%;
+      }
 
-        .file-icon {
-          margin-right: 10px;
-          color: #248dff;
-        }
+      .file-icon {
+        margin-right: 10px;
+        color: #248dff;
+      }
 
-        .file-name {
-          word-break: break-all;
-          font-size: 10px;
-        }
+      .file-name {
+        word-break: break-all;
+        font-size: 10px;
+      }
 
-        .uploaded-files-section h6 {
-          margin-bottom: 10px;
-        }
-        h6 {
-          font-weight: bold;
-        }
+      .uploaded-files-section h6 {
+        margin-bottom: 10px;
+      }
+      h6 {
+        font-weight: bold;
+      }
 
-        /* Custom animations using Animate.css */
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
+      /* Custom animations using Animate.css */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
         }
+        100% {
+          opacity: 1;
+        }
+      }
 
-        @keyframes fadeInUp {
-          0% {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
-          }
+      @keyframes fadeInUp {
+        0% {
+          transform: translateY(20px);
+          opacity: 0;
         }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-        .submit-btn {
-          background-color: #248dff;
-          height: 35px;
-          
-        }
-          .submit-btn-chat {
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  padding: 0; /* Remove padding to remove any spacing around the icon */
-  outline: none; /* Remove the focus outline */
-  margin-left: -30px;
+      .submit-btn {
+        background-color: #248dff;
+        height: 35px;
+      }
+      .submit-btn-chat {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        padding: 0; /* Remove padding to remove any spacing around the icon */
+        outline: none; /* Remove the focus outline */
+        margin-left: -30px;
+      }
+      #file {
+        font-size: 0.7rem;
+      }
+      .submit-btn-chat:hover,
+      .submit-btn-chat:focus {
+        background-color: transparent;
+        box-shadow: none;
+        outline: none; /* Remove the focus outline */
+      }
+      .header {
+        background-color: #248dff; /* Blue background color */
+        color: #fff;
+        padding: 20px; /* Increased padding for better spacing */
+        text-align: center; /* Center-align header content */
+        border-top-left-radius: 10px; /* Add border radius to top-left corner */
+        border-top-right-radius: 10px; /* Add border radius to top-right corner */
+      }
 
-}
-#file{
-  font-size: 0.7rem;
-}
-.submit-btn-chat:hover,
-.submit-btn-chat:focus{
-  background-color: transparent;
-  box-shadow: none;
-  outline: none; /* Remove the focus outline */
-}
-        .header {
-          background-color: #248dff; /* Blue background color */
-          color: #fff;
-          padding: 20px; /* Increased padding for better spacing */
-          text-align: center; /* Center-align header content */
-          border-top-left-radius: 10px; /* Add border radius to top-left corner */
-          border-top-right-radius: 10px; /* Add border radius to top-right corner */
-        }
+      .header h1 {
+        margin: 0;
+        font-size: 32px; /* Larger font size for the main heading */
+        font-family: "Source Sans Pro", Arial, sans-serif; /* Use Source Sans Pro font */
+        font-weight: bold;
+      }
 
-        .header h1 {
-          margin: 0;
-          font-size: 32px; /* Larger font size for the main heading */
-          font-family: "Source Sans Pro", Arial, sans-serif; /* Use Source Sans Pro font */
-          font-weight: bold;
-        }
+      .brain-icon {
+        font-size: 48px; /* Increase font size for a bigger icon */
+        margin-bottom: 15px; /* Adjust margin to create spacing between the icon and the heading */
+      }
+      .uploaded-files-section:hover,
+      .upload-section:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow on hover */
+        transform: translateY(-4px); /* Move the card up slightly on hover */
+      }
+      .subheading {
+        color: #e0d6d6; /* Grey color for the subheading text */
+        margin: 0; /* Remove margin to make it closer to the main heading */
+        font-family: "Source Sans Pro", Arial, sans-serif; /* Use Source Sans Pro font */
+      }
+      .uploads-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-        .brain-icon {
-          font-size: 48px; /* Increase font size for a bigger icon */
-          margin-bottom: 15px; /* Adjust margin to create spacing between the icon and the heading */
-        }
-        .uploaded-files-section:hover,
-        .upload-section:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow on hover */
-          transform: translateY(-4px); /* Move the card up slightly on hover */
-        }
-        .subheading {
-          color: #e0d6d6; /* Grey color for the subheading text */
-          margin: 0; /* Remove margin to make it closer to the main heading */
-          font-family: "Source Sans Pro", Arial, sans-serif; /* Use Source Sans Pro font */
-        }
-        .uploads-heading {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        /* Add margin to the download icon to create spacing */
-        .download-icon {
-          margin-left: 10px;
-          margin-bottom: 40px;
-        }
-        .navbar-brand {
-          margin-left: 3px;
-        }
-        #link{
-          height: 30px;
-        }
-        .fa-paper-plane{
-          color: #248dff;
-          
-        }
-        .fa-paper-plane:hover{
-          scale: 1.1;
-        } 
-        .list-group-item{
-          padding-top:8px;
-          padding-bottom:8px;
-        }
-        
-      </style>
-    </head>
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-          <i class="fas fa-brain fa-lg" style="color: #ffffff"></i>
-          <a class="navbar-brand" href="/">InfoMind</a>
-
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Admin view</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/user_ask">User view</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/chatbot">Chatbot</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
+      /* Add margin to the download icon to create spacing */
+      .download-icon {
+        margin-left: 10px;
+        margin-bottom: 40px;
+      }
+      .navbar-brand {
+        margin-left: 3px;
+      }
+      #link {
+        height: 30px;
+      }
+      .fa-paper-plane {
+        color: #248dff;
+      }
+      .fa-paper-plane:hover {
+        scale: 1.1;
+      }
+      .list-group-item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <!-- <div class="header">
+        <i class="fas fa-brain fa-lg" style="color: #ffffff"></i>
+        <a class="navbar-brand" href="/">InfoMind</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Admin view</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user_ask">User view</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chatbot">Chatbot</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- <div class="header">
           <i class="fas fa-brain brain-icon"></i>
           <h1 class="display-4">InfoMind</h1>
           <p class="subheading">
@@ -407,142 +399,145 @@
           {% endfor %} {% endif %} {% endwith %}
         </div> -->
 
-        <div class="row">
-          <div class="col-md-6">
-            <div
-              class="uploaded-files-section animate__animated animate__fadeInUp"
-              id="uploaded-files-card"
-            >
-              <div class="uploads-heading">
-                <h6>Uploads</h6>
-                <a
-                  href="{{ url_for('download_index') }}"
-                  class="download-icon"
-                  title="Download memory"
-                  ><i class="fas fa-download"></i
-                ></a>
-              </div>
-
-              {% if uploaded_files[0] == "No files uploaded" %}
-              <p>{{ uploaded_files[0] }}</p>
-              {% else %}
-              <ul class="list-group">
-                {% for file in uploaded_files %}
-                <li class="list-group-item">
-                  {% if file.endswith('.pdf') %}
-                  <span class="file-icon"><i class="far fa-file-pdf"></i></span>
-                  {% elif file.endswith('.docx') %}
-                  <span class="file-icon"><i class="far fa-file-word"></i></span>
-                  {% elif file.endswith('.json') %}
-                  <span class="file-icon"><i class="far fa-file-word"></i></span>
-                  {% elif file.endswith('.pptx') %}
-                  <span class="file-icon"
-                    ><i class="far fa-file-powerpoint"></i
-                  ></span>
-                  {% else %}
-                  <span class="file-icon"><i class="far fa-file-alt"></i></span>
-                  {% endif %}
-                  <span class="file-name">{{ file }}</span>
-                  <button
-                    class="btn btn-danger btn-sm delete-file-btn"
-                    data-file="{{ file }}"
-                  >
-                    <i class="fas fa-trash-alt"></i>
-                    <!-- Dustbin icon -->
-                  </button>
-                </li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div
-              class="upload-section animate__animated animate__fadeInUp"
-              id="upload-files-card"
-            >
-              <h6>Upload file</h6>
-              <p style="font-size: smaller">
-                <em>.txt .pdf .ppt .docx .json</em>
-              </p>
-              <form
-                method="post"
-                action="{{ url_for('upload_file') }}"
-                enctype="multipart/form-data"
-              >
-                <div class="form-group">
-                  <input
-                    type="file"
-                    class="form-control-file"
-                    id="file"
-                    name="file"
-                    accept=".txt, .pdf, .docx, .pptx, .json"
-                    multiple
-                  />
-                </div>
-               
-                <div class="form-group">
-                  <label id="upload-link-section" for="link"
-                    >Or upload a link:</label
-                  >
-                  <input type="text" class="form-control" id="link" name="link" />
-                </div>
-                <button type="submit" class="btn btn-primary submit-btn">
-                  <i class="fas fa-upload"></i> Upload
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="chat-icon" onclick="toggleChatCard()">
-          <i class="fa-solid fa-message fa-flip-horizontal fa-lg" style="color: #248dff;"></i>
-        </div>
-
-        <div>
+      <div class="row">
+        <div class="col-md-6">
           <div
-            class="question-section animate__animated animate__fadeInUp"
-            id="question-card"
+            class="uploaded-files-section animate__animated animate__fadeInUp"
+            id="uploaded-files-card"
           >
-          <h5>Ask Me</h5>
-            {% if conversation_history %}
-            
-            <div class="conversation-history-container">
-              <div class="conversation-history">
-                {% for sender, message in conversation_history %}
-                <div class="message">
-                  {% if sender == "User" %}
-                  <p class="user">
-                    <span
-                      ><i class="fas fa-user fa-sm" style="color: #212529"></i
-                    ></span>
-                     {{ message }}
-                  </p>
-                  {% else %}
-                  <p class="ai">
-                    <span
-                      ><i class="fas fa-brain fa-sm" style="color: #ffffff"></i
-                    ></span>
-                     {{ message }}
-                  </p>
-                  {% endif %}
-                </div>
-                {% endfor %}
-              </div>
+            <div class="uploads-heading">
+              <h6>Uploads</h6>
+              <a
+                href="{{ url_for('download_index') }}"
+                class="download-icon"
+                title="Download memory"
+                ><i class="fas fa-download"></i
+              ></a>
             </div>
-            {% else %}
-            <div class="conversation-history-container">
-              <div class="conversation-history">
-                <p class="ai">
-                  <i class="fas fa-brain fa-sm" style="color: #ffffff"></i> Hi,
-                  how may I help you?
-                </p>
-              </div>
-            </div>
-            {% endif %}
 
-            <form method="post" action="{{ url_for('ask_question') }}">
-              <div class="input-field" style="display: flex;">
+            {% if uploaded_files[0] == "No files uploaded" %}
+            <p>{{ uploaded_files[0] }}</p>
+            {% else %}
+            <ul class="list-group">
+              {% for file in uploaded_files %}
+              <li class="list-group-item">
+                {% if file.endswith('.pdf') %}
+                <span class="file-icon"><i class="far fa-file-pdf"></i></span>
+                {% elif file.endswith('.docx') %}
+                <span class="file-icon"><i class="far fa-file-word"></i></span>
+                {% elif file.endswith('.json') %}
+                <span class="file-icon"><i class="far fa-file-word"></i></span>
+                {% elif file.endswith('.pptx') %}
+                <span class="file-icon"
+                  ><i class="far fa-file-powerpoint"></i
+                ></span>
+                {% else %}
+                <span class="file-icon"><i class="far fa-file-alt"></i></span>
+                {% endif %}
+                <span class="file-name">{{ file }}</span>
+                <button
+                  class="btn btn-danger btn-sm delete-file-btn"
+                  data-file="{{ file }}"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  <!-- Dustbin icon -->
+                </button>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="upload-section animate__animated animate__fadeInUp"
+            id="upload-files-card"
+          >
+            <h6>Upload file</h6>
+            <p style="font-size: smaller">
+              <em>.txt .pdf .ppt .docx .json</em>
+            </p>
+            <form
+              method="post"
+              action="{{ url_for('upload_file') }}"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="file"
+                  name="file"
+                  accept=".txt, .pdf, .docx, .pptx, .json"
+                  multiple
+                />
+              </div>
+
+              <div class="form-group">
+                <label id="upload-link-section" for="link"
+                  >Or upload a link:</label
+                >
+                <input type="text" class="form-control" id="link" name="link" />
+              </div>
+              <button type="submit" class="btn btn-primary submit-btn">
+                <i class="fas fa-upload"></i> Upload
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-icon" onclick="toggleChatCard()">
+        <i
+          class="fa-solid fa-message fa-flip-horizontal fa-lg"
+          style="color: #248dff"
+        ></i>
+      </div>
+
+      <div>
+        <div
+          class="question-section animate__animated animate__fadeInUp"
+          id="question-card"
+        >
+          <h5>Ask Me</h5>
+          {% if conversation_history %}
+
+          <div class="conversation-history-container">
+            <div class="conversation-history">
+              {% for sender, message in conversation_history %}
+              <div class="message">
+                {% if sender == "User" %}
+                <p class="user">
+                  <span
+                    ><i class="fas fa-user fa-sm" style="color: #212529"></i
+                  ></span>
+                  {{ message }}
+                </p>
+                {% else %}
+                <p class="ai">
+                  <span
+                    ><i class="fas fa-brain fa-sm" style="color: #ffffff"></i
+                  ></span>
+                  {{ message }}
+                </p>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <div class="conversation-history-container">
+            <div class="conversation-history">
+              <p class="ai">
+                <i class="fas fa-brain fa-sm" style="color: #ffffff"></i> Hi,
+                how may I help you?
+              </p>
+            </div>
+          </div>
+          {% endif %}
+
+          <form method="post" action="{{ url_for('ask_question') }}">
+            <div class="input-field" style="display: flex">
               <div class="form-group">
                 <input
                   type="text"
@@ -553,60 +548,83 @@
                   placeholder="Ask a question..."
                 />
               </div>
-              
+
               <button type="submit" class="submit-btn-chat">
-                <i class="fas fa-paper-plane fa-lg" style="color: #248dff;"></i>
+                <i class="fas fa-paper-plane fa-lg" style="color: #248dff"></i>
               </button>
             </div>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
+    </div>
 
-      <!-- Font Awesome JS -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-      <!-- Animate.css -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
-      <script>
-        function toggleChatCard() {
-          var chatCard = document.getElementById("question-card");
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Animate.css -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
+    <script>
+      function toggleChatCard() {
+        var chatCard = document.getElementById("question-card");
 
-          if (chatCard.style.display === "block") {
-            chatCard.style.display = "none";
-          } else {
-            chatCard.style.display = "block";
-          }
+        if (chatCard.style.display === "block") {
+          chatCard.style.display = "none";
+        } else {
+          chatCard.style.display = "block";
         }
+      }
 
-        document.querySelectorAll(".delete-file-btn").forEach((button) => {
-          button.addEventListener("click", (event) => {
-            const fileToDelete = event.target.dataset.file;
-            deleteFile(fileToDelete);
-          });
+      document.querySelectorAll(".delete-file-btn").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const fileToDelete = event.target.dataset.file;
+          deleteFile(fileToDelete);
         });
+      });
 
-        function deleteFile(filename) {
-          fetch(`/delete/${filename}`, { method: "GET" })
-            .then((response) => {
-              if (response.ok) {
-                return response.text();
-              } else {
-                throw new Error("Network response was not ok");
-              }
-            })
-            .then((message) => {
-              alert(message);
-              location.reload(); // Reload the page after successful deletion
-            })
-            .catch((error) => {
-              alert(`Error occurred: ${error.message}`);
-            });
-        }
-      </script>
-      <footer class="footer mt-5">
-        <div class="container text-center">
-          <p>&copy; 2023 Adobe Inc. All rights reserved.</p>
-        </div>
-      </footer>
-    </body>
-  </html>
+      // function deleteFile(filename) {
+      //   fetch(`/delete/${filename}`, { method: "GET" })
+      //     .then((response) => {
+      //       if (response.ok) {
+      //         return response.text();
+      //       } else {
+      //         throw new Error("Network response was not ok");
+      //       }
+      //     })
+      //     .then((message) => {
+      //       alert(message);
+      //       location.reload(); // Reload the page after successful deletion
+      //     })
+      //     .catch((error) => {
+      //       alert(`Error occurred: ${error.message}`);
+      //     });
+      // }
+      function deleteFile(filename) {
+        fetch(`/delete/${filename}`, {
+          method: "POST", // Change the method to "POST"
+          headers: {
+            "Content-Type": "application/json", // Add appropriate headers if necessary
+          },
+          body: JSON.stringify({ filename }), // Provide the filename in the body
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error("Network response was not ok");
+            }
+          })
+          .then((message) => {
+            alert(message);
+            location.reload(); // Reload the page after successful deletion
+          })
+          .catch((error) => {
+            alert(`Error occurred: ${error.message}`);
+          });
+      }
+    </script>
+    <footer class="footer mt-5">
+      <div class="container text-center">
+        <p>&copy; 2023 Adobe Inc. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
