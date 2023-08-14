@@ -585,23 +585,46 @@
           });
         });
 
+        // function deleteFile(filename) {
+        //   fetch(`/delete/${filename}`, { method: "GET" })
+        //     .then((response) => {
+        //       if (response.ok) {
+        //         return response.text();
+        //       } else {
+        //         throw new Error("Network response was not ok");
+        //       }
+        //     })
+        //     .then((message) => {
+        //       alert(message);
+        //       location.reload(); // Reload the page after successful deletion
+        //     })
+        //     .catch((error) => {
+        //       alert(`Error occurred: ${error.message}`);
+        //     });
+        // }
         function deleteFile(filename) {
-          fetch(`/delete/${filename}`, { method: "GET" })
-            .then((response) => {
-              if (response.ok) {
-                return response.text();
-              } else {
-                throw new Error("Network response was not ok");
-              }
-            })
-            .then((message) => {
-              alert(message);
-              location.reload(); // Reload the page after successful deletion
-            })
-            .catch((error) => {
-              alert(`Error occurred: ${error.message}`);
-            });
-        }
+        fetch(`/delete/${filename}`, {
+          method: "POST", // Change the method to "POST"
+          headers: {
+            "Content-Type": "application/json", // Add appropriate headers if necessary
+          },
+          body: JSON.stringify({ filename }), // Provide the filename in the body
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error("Network response was not ok");
+            }
+          })
+          .then((message) => {
+            alert(message);
+            location.reload(); // Reload the page after successful deletion
+          })
+          .catch((error) => {
+            alert(`Error occurred: ${error.message}`);
+          });
+      }
       </script>
       <footer class="footer mt-5">
         <div class="container text-center">
