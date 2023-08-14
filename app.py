@@ -158,18 +158,38 @@ def download_index():
 
 
 
-@app.route('/delete/<string:filename>', methods=['GET'])
+# @app.route('/delete/<string:filename>', methods=['GET'])
+# def delete_uploaded_file(filename):
+#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#     if os.path.exists(file_path):
+#         try:
+#             os.remove(file_path)
+#             construct_index("uploads")  # Call construct_index function after file deletion
+#             return "File deleted successfully!"
+#         except Exception as e:
+#             return f"Error occurred while deleting the file: {e}"
+#     else:
+#         return "File not found."
+
+@app.route('/delete/<string:filename>', methods=['POST'])
 def delete_uploaded_file(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    if os.path.exists(file_path):
-        try:
-            os.remove(file_path)
-            construct_index("uploads")  # Call construct_index function after file deletion
-            return "File deleted successfully!"
-        except Exception as e:
-            return f"Error occurred while deleting the file: {e}"
-    else:
-        return "File not found."
+    if request.method == 'POST':
+        data = request.get_json()
+        if data and 'filename' in data:
+            filename = data['filename']
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            # Rest of the code remains the same
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                    construct_index("uploads")  # Call construct_index function after file deletion
+                    return "File deleted successfully!"
+                except Exception as e:
+                    return f"Error occurred while deleting the file: {e}"
+            else:
+                return "File not found."
+            
+        return redirect(url_for('index'))
 
 
 @app.route('/user_ask', methods=['POST', 'GET'])
