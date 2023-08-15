@@ -575,7 +575,7 @@
 
       document.querySelectorAll(".delete-file-btn").forEach((button) => {
         button.addEventListener("click", (event) => {
-          const fileToDelete = event.target.dataset.file;
+          const fileToDelete = event.currentTarget.getAttribute("data-file");
           deleteFile(fileToDelete);
         });
       });

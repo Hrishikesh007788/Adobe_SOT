@@ -18,6 +18,10 @@ app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
 temp_dir = tempfile.TemporaryDirectory()
 app.config['UPLOAD_FOLDER'] = temp_dir.name
 
+index_temp_dir = tempfile.TemporaryDirectory()
+index_temp_path = index_temp_dir.name
+
+
 bootstrap = Bootstrap(app)
 
 
@@ -52,10 +56,10 @@ def construct_index(directory_path):
     # index.save_to_disk('index.json')
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        index.save_to_disk(os.path.join(directory_path, 'index.json'))
+        index.save_to_disk(os.path.join(index_temp_path, 'index.json'))
 
               # index.json in temp path
-        print(os.path.join(temp_dir, 'index.json'))
+        print(os.path.join(index_temp_path, 'index.json'))
 
         # After saving, copy the index.json to your app's upload folder
         # index_json_path = os.path.join(temp_dir, 'index.json')    
@@ -70,9 +74,10 @@ def construct_index(directory_path):
 
 
 def ask_ai(query):
-    index = GPTSimpleVectorIndex.load_from_disk(os.path.join(app.config['UPLOAD_FOLDER'], 'index.json'))
+    index = GPTSimpleVectorIndex.load_from_disk(os.path.join(index_temp_path, 'index.json'))
     response = index.query(query)
     return response
+
 
 
 def extract_text_from_webpage(url):
@@ -186,9 +191,10 @@ def ask_question():
 @app.route('/download_index', methods=['GET'])
 def download_index():
     try:
-        return send_file('index.json', as_attachment=True)
+        return send_file(os.path.join(index_temp_path, 'index.json'), as_attachment=True)
     except Exception as e:
         return f"Error occurred while downloading the file: {e}"
+
 
 # def delete_file(filename):
 #     try:
