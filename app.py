@@ -13,7 +13,7 @@ app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 bootstrap = Bootstrap(app)
-os.environ["OPENAI_API_KEY"] = "API"
+os.environ["OPENAI_API_KEY"] = ""
 
 
 query = ""  # Variable to store the user's question
