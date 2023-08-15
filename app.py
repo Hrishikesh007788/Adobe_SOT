@@ -190,10 +190,16 @@ def ask_question():
 
 @app.route('/download_index', methods=['GET'])
 def download_index():
-    try:
-        return send_file(os.path.join(index_temp_path, 'index.json'), as_attachment=True)
-    except Exception as e:
-        return f"Error occurred while downloading the file: {e}"
+    index_file_path = os.path.join(index_temp_path, 'index.json')
+    if os.path.exists(index_file_path):
+        try:
+            return send_file(index_file_path, as_attachment=True)
+        except Exception as e:
+            return f"Error occurred while downloading the file: {e}"
+    else:
+        flash('Please upload a file first.', 'error')
+        return redirect(url_for('index'))
+
 
 
 # def delete_file(filename):
