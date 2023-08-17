@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
 
-    <title>InfoMind</title>
+    <title>dataSense</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -123,7 +123,7 @@
         font-size: 0.8rem;
       }
       .btn-danger {
-        margin-left: 43px;
+        
         font-size: 0.65rem;
         float: right;
       }
@@ -213,6 +213,7 @@
       #upload-link-section {
         margin-top: 20px;
         font-weight: bold;
+        font-size: smaller;
       }
       .uploaded-files-section {
         background-color: #f9f9f9;
@@ -348,8 +349,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <i class="fas fa-brain fa-lg" style="color: #ffffff"></i>
-        <a class="navbar-brand" href="/" style="color: #248dff; margin: 1px;">d</a>
-          <a class="navbar-brand" href="/" style="color: #50e172; margin: 1px;">A</a>
+        <a class="navbar-brand" href="/" style="color: #248dff; margin: 1px; margin-left: 5px;">d</a>
+          <a class="navbar-brand" href="/" style="color: #50e172; margin: 1px;">a</a>
           <a class="navbar-brand" href="/" style="color: #8d1fcc; margin: 1px;">t</a>
           <a class="navbar-brand" href="/" style="color: #e67a27; margin: 1px;">a</a>
           <a class="navbar-brand" href="/" style="color: #0b58bb; margin: 1px;">S</a>
@@ -414,13 +415,13 @@
             id="uploaded-files-card"
           >
             <div class="uploads-heading">
-              <h6>Uploads</h6>
-              <a
+              <p style="font-size: smaller; font-weight: bold;">Uploaded artifacts/files</p>
+              <!-- <a
                 href="{{ url_for('download_index') }}"
                 class="download-icon"
                 title="Download memory"
                 ><i class="fas fa-download"></i
-              ></a>
+              ></a> -->
             </div>
 
             {% if uploaded_files[0] == "No files uploaded" %}
@@ -442,7 +443,7 @@
                 {% else %}
                 <span class="file-icon"><i class="far fa-file-alt"></i></span>
                 {% endif %}
-                <span class="file-name">{{ file }}</span>
+                <span class="file-name">{{ file[:16] }}...</span>
                 <button
                   class="btn btn-danger btn-sm delete-file-btn"
                   data-file="{{ file }}"
@@ -461,7 +462,7 @@
             class="upload-section animate__animated animate__fadeInUp"
             id="upload-files-card"
           >
-            <h6>Upload file</h6>
+            <p style="font-size: smaller; font-weight: bold; margin-bottom: 0;">Upload file</p>
             <p style="font-size: smaller">
               <em>.txt .pdf .ppt .docx .json</em>
             </p>
@@ -507,7 +508,7 @@
           class="question-section animate__animated animate__fadeInUp"
           id="question-card"
         >
-          <h5>Ask Me</h5>
+          <p style="font-size: smaller; font-weight: bold;">Ask Me</p>
           {% if conversation_history %}
 
           <div class="conversation-history-container">

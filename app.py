@@ -1,10 +1,8 @@
 import os
-import shutil
-from flask import Flask, jsonify, render_template, request, flash, redirect, send_file, url_for
+from flask import Flask, render_template, request, flash, redirect, send_file, url_for
 from flask_bootstrap import Bootstrap
-from llama_index import SimpleDirectoryReader, GPTListIndex, readers, GPTSimpleVectorIndex, LLMPredictor, PromptHelper, ServiceContext
+from llama_index import SimpleDirectoryReader, GPTSimpleVectorIndex, LLMPredictor, PromptHelper, ServiceContext
 from langchain import OpenAI
-import sys
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -61,9 +59,7 @@ def construct_index(directory_path):
               # index.json in temp path
         print(os.path.join(index_temp_path, 'index.json'))
 
-        # After saving, copy the index.json to your app's upload folder
-        # index_json_path = os.path.join(temp_dir, 'index.json')    
-        # shutil.copy(index_json_path, app.config['UPLOAD_FOLDER'])
+     
 
 
 
@@ -146,6 +142,7 @@ def index():
 def upload_file():
     global query  # Allow access to the global query variable
     if request.method == 'POST':
+        
         # Check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part', 'error')
@@ -165,6 +162,7 @@ def upload_file():
             save_text_to_file(extracted_text, os.path.join(temp_dir.name, "link_content.txt"))
 
     construct_index(temp_dir.name)  # Use the temporary directory
+  
 
     return redirect(url_for('index'))
 
@@ -200,27 +198,6 @@ def download_index():
         flash('Please upload a file first.', 'error')
         return redirect(url_for('index'))
 
-
-
-# def delete_file(filename):
-#     try:
-#         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#         return "File deleted successfully!"
-#     except Exception as e:
-#         return f"Error occurred while deleting the file: {e}"
-
-# @app.route('/delete/<string:filename>', methods=['GET'])
-# def delete_uploaded_file(filename):
-#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#     if os.path.exists(file_path):
-#         try:
-#             os.remove(file_path)
-#             construct_index(temp_dir.name)  # Call construct_index function after file deletion
-#             return "File deleted successfully!"
-#         except Exception as e:
-#             return f"Error occurred while deleting the file: {e}"
-#     else:
-#         return "File not found."
     
 
 @app.route('/delete/<string:filename>', methods=['POST'])
