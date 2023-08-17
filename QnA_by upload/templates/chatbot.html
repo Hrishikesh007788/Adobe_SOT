@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dataSense</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Add your CSS styles here */
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+      }
+
+      /* Styling for chat icon */
+      #chat-icon {
+        position: fixed;
+        bottom: 40px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        z-index: 9999;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      #chat-icon:hover {
+        scale: 1.1;
+      }
+
+      #chat-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 300px;
+        max-height: 350px;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 9999;
+        overflow-y: auto;
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      #chat-window.active {
+        max-height: 600px;
+      }
+
+      #chat-header {
+        background-color: #248dff;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      #chat-body {
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      .message {
+        background-color: #f2f2f2;
+        color: #333;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        
+      }
+
+      #user-input {
+       
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #chat-button {
+        
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+    
+
+      .bold-text {
+        font-weight: bold;
+      }
+      .header {
+        background-color: #248dff;
+        color: #fff;
+        padding: 10px;
+      }
+
+      .footer {
+        background-color: #f9f9f9;
+        font-size: smaller;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        height: 45px;
+      }
+
+      .footer p {
+        margin: 0;
+        margin-top: -20px;
+      }
+
+      .header h1 {
+        margin: 0;
+      }
+      .container {
+        max-width: 65%;
+        margin: auto;
+        margin-top: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-top: 20px;
+      }
+
+      h4 {
+        font-weight: bold;
+      }
+
+      .header {
+        background-color: #248dff; /* Blue background color */
+        color: #fff;
+        padding: 20px; /* Increased padding for better spacing */
+        text-align: center; /* Center-align header content */
+        border-top-left-radius: 10px; /* Add border radius to top-left corner */
+        border-top-right-radius: 10px; /* Add border radius to top-right corner */
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 32px; /* Larger font size for the main heading */
+        font-family: "Source Sans Pro", Arial, sans-serif; /* Use Source Sans Pro font */
+        font-weight: bold;
+      }
+
+      .brain-icon {
+        font-size: 48px; /* Increase font size for a bigger icon */
+        margin-bottom: 15px; /* Adjust margin to create spacing between the icon and the heading */
+      }
+      .navbar-brand {
+        margin-left: 3px;
+      }
+      .submit-btn{
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        padding: 0; /* Remove padding to remove any spacing around the icon */
+        outline: none; /* Remove the focus outline */
+        margin-left: -30px;
+      }
+  
+      .submit-btn:focus {
+        background-color: transparent;
+        box-shadow: none;
+        outline: none; /* Remove the focus outline */
+      }
+      .submit-btn :hover{
+        scale: 1.1;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <i class="fas fa-brain fa-lg" style="color: #ffffff"></i>
+        <a class="navbar-brand" href="/" style="color: #248dff; margin: 1px; margin-left: 5px;">d</a>
+          <a class="navbar-brand" href="/" style="color: #50e172; margin: 1px;">a</a>
+          <a class="navbar-brand" href="/" style="color: #8d1fcc; margin: 1px;">t</a>
+          <a class="navbar-brand" href="/" style="color: #e67a27; margin: 1px;">a</a>
+          <a class="navbar-brand" href="/" style="color: #0b58bb; margin: 1px;">S</a>
+          <a class="navbar-brand" href="/" style="color: #ef5aec; margin: 1px;">e</a>
+          <a class="navbar-brand" href="/" style="color: #d64ba8; margin: 1px;">n</a>
+          <a class="navbar-brand" href="/" style="color: #dba613; margin: 1px;">s</a>
+          <a class="navbar-brand" href="/" style="color: #68e9b3; margin: 1px;">e</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Admin view</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user_ask">User view</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chatbot">Chatbot</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="chat-icon">
+      <i class="fa-solid fa-message fa-flip-horizontal fa-lg" style="color: #248dff;"></i>
+    </div>
+    <!-- The chat icon -->
+
+    <div id="chat-window">
+      <div id="chat-header">Chatbot</div>
+      <div id="chat-body">
+        {% for sender, message in conversation_history_cb %}
+        <div class="message"><strong>{{ sender }} </strong> {{ message }}</div>
+        {% endfor %}
+        <form id="chat-form" method="POST">
+          <div class="input-field" style="display: flex">
+          <input
+            type="text"
+            id="user-input"
+            name="user_input"
+            required
+            class="form-control"
+            placeholder="Ask me a question..."
+            
+          />
+          <button type="submit" id="chat-button" class="submit-btn">
+            <i class="fas fa-paper-plane fa-lg" style="color: #248dff"></i>
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+      console.log("scripts.js loaded!");
+      function scrollToBottom() {
+        var chatWindow = document.getElementById("chat-body");
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        console.log("scrollToBottom function called!");
+      }
+
+      $(document).ready(function () {
+        // Toggle chat window when the chat icon is clicked
+        $("#chat-icon").click(function () {
+          $("#chat-window").toggle();
+          scrollToBottom();
+        });
+
+        // Submit the chat form on button click
+        $("#chat-button").click(function (event) {
+          event.preventDefault();
+          $("#chat-form").submit();
+        });
+
+        // Automatically scroll to the bottom when the chat window is shown
+        $("#chat-window").on("shown.bs.collapse", function () {
+          scrollToBottom();
+        });
+
+        // Automatically scroll to the bottom on user input submission
+        $("#chat-form").submit(function () {
+          scrollToBottom();
+        });
+      });
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer class="footer mt-5">
+      <div class="container text-center">
+        <p>&copy; 2023 Adobe Inc. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
