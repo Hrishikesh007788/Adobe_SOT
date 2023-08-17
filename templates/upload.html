@@ -213,7 +213,7 @@
       #upload-link-section {
         margin-top: 20px;
         font-weight: bold;
-        font-size: smaller;
+        font-size: 14px;
       }
       .uploaded-files-section {
         background-color: #f9f9f9;
@@ -332,6 +332,7 @@
       }
       #link {
         height: 30px;
+        width: 270px;
       }
       .fa-paper-plane {
         color: #248dff;
@@ -342,6 +343,9 @@
       .list-group-item {
         padding-top: 8px;
         padding-bottom: 8px;
+      }
+      .link-section{
+        margin-left: -19px;
       }
     </style>
   </head>
@@ -415,7 +419,7 @@
             id="uploaded-files-card"
           >
             <div class="uploads-heading">
-              <p style="font-size: smaller; font-weight: bold;">Uploaded artifacts/files</p>
+              <p style="font-size: 14px; font-weight: bold;">Uploaded artifacts/files</p>
               <!-- <a
                 href="{{ url_for('download_index') }}"
                 class="download-icon"
@@ -462,7 +466,7 @@
             class="upload-section animate__animated animate__fadeInUp"
             id="upload-files-card"
           >
-            <p style="font-size: smaller; font-weight: bold; margin-bottom: 0;">Upload file</p>
+            <p style="font-size: 14px; font-weight: bold; margin-bottom: 0;">Upload file</p>
             <p style="font-size: smaller">
               <em>.txt .pdf .ppt .docx .json</em>
             </p>
@@ -482,7 +486,7 @@
                 />
               </div>
 
-              <div class="form-group">
+              <div class="form-group link-section">
                 <label id="upload-link-section" for="link"
                   >Or upload a link:</label
                 >
