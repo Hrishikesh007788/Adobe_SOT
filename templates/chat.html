@@ -211,7 +211,7 @@
         margin-top: 20px;
       }
       #question {
-        width: 585px;
+        width: 750px;
       }
       .navbar-brand {
         margin-left: 3px;
@@ -286,7 +286,11 @@
         </div>
         {% endif %}
 
-        <div class="conversation">
+        {% if alert %}
+        <div class="alert alert-danger">{{ alert }}</div>
+      {% endif %}
+
+        <div class="conversation" id="conversation-container">
           {% for speaker, message in conversation_history_user %} {% if speaker
           == 'User' %}
           <div class="user-section">
@@ -336,6 +340,13 @@
     <!-- Animate.css -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
     <script>
+
+function scrollToBottom() {
+    const conversationContainer = document.getElementById("conversation-container");
+    conversationContainer.scrollTop = conversationContainer.scrollHeight;
+  }
+  window.onload = scrollToBottom;
+
       function submitQuestion() {
         const questionInput = document.getElementById("question-input").value;
         if (questionInput.trim() === "") {

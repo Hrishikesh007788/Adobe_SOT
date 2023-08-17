@@ -224,21 +224,28 @@ def delete_uploaded_file(filename):
 @app.route('/user_ask', methods=['POST', 'GET'])
 def user_ask():
     global conversation_history_user, query  # Allow access to the global conversation history and query variables
+    uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
+
     if request.method == 'POST':
         user_query = request.form.get('question')
         conversation_history_user.append(("User", user_query))  # Add user's question to the conversation history
+
+        index_file_path = os.path.join(index_temp_path, 'index.json')
+        if not os.path.exists(index_file_path):
+            return render_template('chat.html', conversation_history_user=conversation_history_user, alert="No files present. Please upload a file.")
 
         # Ask the AI and get the response
         response = ask_ai(user_query)
         conversation_history_user.append(("AI", response))  # Add AI's response to the conversation history
 
-        uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
-
         if not uploaded_files:
-            uploaded_files = ["No files uploaded"]
+            return render_template('chat.html', answer=response, conversation_history_user=conversation_history_user, alert="No files uploaded. Please upload a file.")
 
         return render_template('chat.html', answer=response, conversation_history_user=conversation_history_user)  # Pass conversation_history to the template
-    return render_template('chat.html', conversation_history_user=conversation_history_user)
+
+    return render_template('chat.html', conversation_history_user=conversation_history_user, uploaded_files=uploaded_files)
+
+
 
 
 
