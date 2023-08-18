@@ -272,49 +272,60 @@
       <!-- ---CHAT WINDOW--- -->
 
       <div class="chat-window">
-        <h4>Ask me</h4>
-        {% if not conversation_history_user %}
-        <div class="ai-section">
-          <div class="ai-bubble">
-            <p>
-              <span class="bold-text"
-                ><i class="fas fa-brain fa-sm" style="color: #ffffff"></i
-              ></span>
-              Hi, how may I help you?
-            </p>
-          </div>
+        <div style="display: flex;">
+          
+          <h4 style="font-size: 1.2rem; white-space: nowrap;">Ask me</h4>
+          
+          
+          <form method="post" action="{{ url_for('delete_chat') }}" style="margin-top: 0; margin-bottom: 10px;">
+            <button type="submit" class="btn btn-sm mt-2" title="Clear chat" style="background-color: #248dff; margin-left: 646px; color: #fff; width: 45px; height: 27px; font-size: small;">clear</button>
+          </form>
         </div>
-        {% endif %}
-
-        {% if alert %}
-        <div class="alert alert-danger">{{ alert }}</div>
-      {% endif %}
-
-        <div class="conversation" id="conversation-container">
-          {% for speaker, message in conversation_history_user %} {% if speaker
-          == 'User' %}
-          <div class="user-section">
-            <div class="user-bubble">
-              <p>
-                <span class="bold-text"><i class="fas fa-user fa-sm"></i></span>
-                {{ message }}
-              </p>
-            </div>
-          </div>
-          {% else %}
+       
+        {% if not conversation_history_user %}
           <div class="ai-section">
             <div class="ai-bubble">
               <p>
                 <span class="bold-text"
                   ><i class="fas fa-brain fa-sm" style="color: #ffffff"></i
                 ></span>
-                {{ message }}
+                Hi, how may I help you?
               </p>
             </div>
           </div>
-          {% endif %} {% endfor %}
+        {% endif %}
+      
+        {% if alert %}
+          <div class="alert alert-danger">{{ alert }}</div>
+        {% endif %}
+        
+        <div class="conversation" id="conversation-container">
+          
+          {% for speaker, message in conversation_history_user %}
+            {% if speaker == 'User' %}
+              <div class="user-section">
+                <div class="user-bubble">
+                  <p>
+                    <span class="bold-text"><i class="fas fa-user fa-sm"></i></span>
+                    {{ message }}
+                  </p>
+                </div>
+              </div>
+            {% else %}
+              <div class="ai-section">
+                <div class="ai-bubble">
+                  <p>
+                    <span class="bold-text"
+                      ><i class="fas fa-brain fa-sm" style="color: #ffffff"></i
+                    ></span>
+                    {{ message }}
+                  </p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
-
+      
         <form method="post" action="{{ url_for('user_ask') }}">
           <div class="input-field" style="display: flex">
             <div class="form-group">
@@ -332,7 +343,10 @@
             </button>
           </div>
         </form>
+      
+       
       </div>
+      
     </div>
 
     <!-- Font Awesome JS -->

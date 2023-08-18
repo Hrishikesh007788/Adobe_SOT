@@ -245,6 +245,11 @@ def user_ask():
 
     return render_template('chat.html', conversation_history_user=conversation_history_user, uploaded_files=uploaded_files)
 
+@app.route('/delete_chat', methods=['POST'])
+def delete_chat():
+    global conversation_history_user
+    conversation_history_user = []  # Clear the conversation history
+    return redirect(url_for('user_ask'))
 
 
 
