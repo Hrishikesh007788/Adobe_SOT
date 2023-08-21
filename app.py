@@ -3,34 +3,64 @@ from flask import Flask, render_template, request, flash, redirect, send_file, u
 from flask_bootstrap import Bootstrap
 from llama_index import SimpleDirectoryReader, GPTSimpleVectorIndex, LLMPredictor, PromptHelper, ServiceContext
 from langchain import OpenAI
-import os
 import requests
 from bs4 import BeautifulSoup
 from werkzeug.utils import secure_filename
 import tempfile
 import openai
+from google.cloud import storage
+import glob
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set your secret key for flash messages
 
 temp_dir = tempfile.TemporaryDirectory()
-app.config['UPLOAD_FOLDER'] = temp_dir.name
 
-index_temp_dir = tempfile.TemporaryDirectory()
-index_temp_path = index_temp_dir.name
+
+
 
 
 bootstrap = Bootstrap(app)
 
 
-os.environ["OPENAI_API_KEY"] = ''
+os.environ["OPENAI_API_KEY"] = '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'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'adobe-sot-0ee3ee6f1950.json'
+
 
 
 query = ""  # Variable to store the user's question
 
-def construct_index(directory_path):
+GCS_CLIENT = storage.Client()
 
-    openai.api_key = ""
+def upload_cs_file(bucket_name,index_variable_name,destination_file_name):
+    bucket = GCS_CLIENT.bucket(bucket_name)
+    blob = bucket.blob(destination_file_name)
+    blob.upload_from_string(index_variable_name)
+    return True
+
+
+
+
+def upload_from_directory(dest_bucket_name: str, directory_path: str, dest_blob_name: str):
+    rel_paths = glob.glob(directory_path + '/**', recursive=True)
+    bucket = GCS_CLIENT.get_bucket(dest_bucket_name)
+    for local_file in rel_paths:
+        remote_path = f'{dest_blob_name}/{"/".join(local_file.split(os.sep)[1:])}'
+        if os.path.isfile(local_file):
+            blob = bucket.blob(remote_path)
+            blob.upload_from_filename(local_file)
+
+
+def list_uploaded_files(bucket_name):
+    bucket = GCS_CLIENT.get_bucket(bucket_name)
+    blobs = bucket.list_blobs()
+
+    file_names = [blob.name for blob in blobs]
+    return file_names
+
+
+def construct_index_from_gcs_bucket(bucket_name):
+    openai.api_key = "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"
     # set maximum input size
     max_input_size = 4096
     # set number of output tokens
@@ -46,33 +76,46 @@ def construct_index(directory_path):
     # define LLM
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0.5, model_name="text-davinci-003", max_tokens=num_outputs))
  
-    documents = SimpleDirectoryReader(directory_path).load_data()
+  
+
+    # List files in the GCS bucket
+    bucket = GCS_CLIENT.bucket(bucket_name)
+    blobs = bucket.list_blobs()
+
+    local_temp_dir = tempfile.mkdtemp()  # Create a temporary local directory
     
+    # Download GCS blobs to the local directory
+    for blob in blobs:
+        filename = os.path.basename(blob.name)
+        local_file_path = os.path.join(local_temp_dir, filename)
+        blob.download_to_filename(local_file_path)
+    
+    # Use the local directory for SimpleDirectoryReader
+    documents = SimpleDirectoryReader(local_temp_dir).load_data()
+
+ 
+
+
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
     index = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
+    
+    index_content = index.save_to_string()
+   
+    upload_cs_file('index_memory_bucket', index_content, 'memory')  
 
-    # index.save_to_disk('index.json')
+    return index_content
 
-    with tempfile.TemporaryDirectory() as temp_dir:
-        index.save_to_disk(os.path.join(index_temp_path, 'index.json'))
-
-              # index.json in temp path
-        print(os.path.join(index_temp_path, 'index.json'))
-
-     
-
-
-
-       
-
-    return index
 
 
 
 def ask_ai(query):
-    index = GPTSimpleVectorIndex.load_from_disk(os.path.join(index_temp_path, 'index.json'))
+    index_blob = GCS_CLIENT.get_bucket('index_memory_bucket').blob('memory')
+    index_content = index_blob.download_as_text()
+    
+    index = GPTSimpleVectorIndex.load_from_string(index_content)
     response = index.query(query)
     return response
+
 
 
 
@@ -104,12 +147,22 @@ def save_text_to_file(text, filename):
 
 def upload_files(request_files):
     uploaded_filenames = []
+
     for file in request_files.getlist('file'):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            # Create a Blob object with the appropriate GCS path
+            blob_name = f'uploads/{filename}'
+            blob = GCS_CLIENT.bucket('all_file_uploads_bucket').blob(blob_name)
+            
+            # Upload the file directly to the GCS bucket
+            blob.upload_from_file(file, content_type=file.content_type)
+            
             uploaded_filenames.append(filename)
+
     return uploaded_filenames
+
 
 
 
@@ -119,24 +172,15 @@ conversation_history_cb = []
     
 @app.route('/')
 def index():
+    global conversation_history
 
-     # Temp path
-    print(temp_dir.name)
-
-    
-
-        
-        # Uploads in temp path
-    print(['UPLOAD_FOLDER'])  
-
-    global conversation_history  # Allow access to the global conversation history variable
-
-    uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
+    uploaded_files = list_uploaded_files('all_file_uploads_bucket')
 
     if not uploaded_files:
         uploaded_files = ["No files uploaded"]
 
     return render_template('upload.html', conversation_history=conversation_history, uploaded_files=uploaded_files)
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -159,9 +203,10 @@ def upload_file():
         extracted_text = extract_text_from_webpage(link)
         flash(f'Link uploaded successfully!', 'success')
         if extracted_text:
-            save_text_to_file(extracted_text, os.path.join(temp_dir.name, "link_content.txt"))
+            save_text_to_file(extracted_text, "uploads/link_content.txt")
 
-    construct_index(temp_dir.name)  # Use the temporary directory
+    construct_index_from_gcs_bucket('all_file_uploads_bucket')
+
   
 
     return redirect(url_for('index'))
@@ -178,7 +223,7 @@ def ask_question():
         response = ask_ai(query)
         conversation_history.append(("AI", response))  # Add AI's response to the conversation history
 
-        uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
+        uploaded_files = list_uploaded_files('all_file_uploads_bucket')
 
         if not uploaded_files:
             uploaded_files = ["No files uploaded"]
@@ -188,7 +233,7 @@ def ask_question():
 
 @app.route('/download_index', methods=['GET'])
 def download_index():
-    index_file_path = os.path.join(index_temp_path, 'index.json')
+    index_file_path = os.path.join('index.json')
     if os.path.exists(index_file_path):
         try:
             return send_file(index_file_path, as_attachment=True)
@@ -200,39 +245,34 @@ def download_index():
 
     
 
-@app.route('/delete/<string:filename>', methods=['POST'])
+@app.route('/delete/uploads/<string:filename>', methods=['POST'])
 def delete_uploaded_file(filename):
     if request.method == 'POST':
         data = request.get_json()
         if data and 'filename' in data:
             filename = data['filename']
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            # Rest of the code remains the same
-            if os.path.exists(file_path):
-                try:
-                    os.remove(file_path)
-                    construct_index(temp_dir.name)  # Call construct_index function after file deletion
-                    return "File deleted successfully!"
-                except Exception as e:
-                    return f"Error occurred while deleting the file: {e}"
-            else:
-                return "File not found."
+            bucket = GCS_CLIENT.get_bucket('all_file_uploads_bucket')
+            blob = bucket.blob(filename)
+            blob.delete()
             
+
+            construct_index_from_gcs_bucket('all_file_uploads_bucket')
+
         return redirect(url_for('index'))
 
 
 @app.route('/user_ask', methods=['POST', 'GET'])
 def user_ask():
     global conversation_history_user, query  # Allow access to the global conversation history and query variables
-    uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])  # Get the list of uploaded files
+    uploaded_files = list_uploaded_files('all_file_uploads_bucket')  # Get the list of uploaded files
 
     if request.method == 'POST':
         user_query = request.form.get('question')
         conversation_history_user.append(("User", user_query))  # Add user's question to the conversation history
 
-        index_file_path = os.path.join(index_temp_path, 'index.json')
-        if not os.path.exists(index_file_path):
-            return render_template('chat.html', conversation_history_user=conversation_history_user, alert="No files present. Please upload a file.")
+        # index_file_path = os.path.join('index.json')
+        # if not os.path.exists(index_file_path):
+        #     return render_template('chat.html', conversation_history_user=conversation_history_user, alert="No files present. Please upload a file.")
 
         # Ask the AI and get the response
         response = ask_ai(user_query)
@@ -289,6 +329,10 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
 
+
+@app.template_filter('basename')
+def basename_filter(value):
+    return os.path.basename(value)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

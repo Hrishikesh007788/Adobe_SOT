@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "adobe-sot",
+  "private_key_id": "0ee3ee6f1950db5f91d3f5f80531234c3f04da54",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC87awNwYhkDX6B\n/K8+BibYwg8V8XnqtxGqFEWO+KoeAEW/Qu2fivjdyB4wFy3DmB+IjSLD245Ecwv+\n6ZrlJwWipkDxlAG9Q1DgdHbPk14YrSETuP3Z5LafQup0if4U1AJaRLPzR7kWFdMl\n76EnhC/2UIwD8QfDZQPxa8TxCYoMq0YRsx68Pa//nSkmPSDUz8Efb20wLAepU7ei\nnqzPYilfnbajPeTbgq/ySwEqo2ouhc9vAXeYVZC0wgpZ7RKGqASVYcpbEdpYTEMe\ne9hprdDL3UZhn0DsyEH5lN7BqgTRx8z14LkOowyjpboUNHZvFmlKzA93N80m4/M5\nw/kaSwu5AgMBAAECgf95RsLWEbsmfthhQ33lUrhHwZ/tdhUiQQzAdkLbLsSv0tJI\nSa4/u/YFEsZOGJLypl7s86xdYuhFsumrDkoKz1ckEZT0KQ5KGpbQKUgbTNNvrl3i\noIhTrCg5aRBtFCewjGeg386kBxEeHDnDyw9So917QDlLo8MCqtWHzqZIFCzfSUtM\njAtc916eVJzRziO20UYA0/L6vOfGdR61f7Q+nLL3OhPF3Sp4MmL3nyy4iqBmBsyR\nbK4WNvL/zDuSXBPh7wnMaq59wAAwauMffOLBti5x4VYB2FgTq+L+eN/KowM+pRHz\ni78A9NC/ridjO4V2l4VgSqpynXGFA0gnpgt3B80CgYEA+mNBxGGrHq2zSSWv7OBP\nEPkqvQtCWFCSzZT8KKO7sI37HyzNeFIrod+Aqpragh3QQKzhVDkLD8yIEoVTei5U\nhyAQJaSoZ9oBABlShQf8BY7xP5acoWAAAQUku7oIAOqA2hH4z4U0Cy/Mt+oiJrwv\nwak7q1MUSwbMcM4b/yY0TV8CgYEAwSnB0vbbKZf2fy8nfWbPHf6lWLALne5B20Ed\n+nHHRhGe48uw6KRL2u3owP9ZwsVvquk93o0mniwgKZ/ADEi68rYJwWpyBxlsYEu3\nl4tYDn/PzuMiRVGPtcrbT8uj4McYwzovARYZm52n1Fzgmm2pZ8+NNdAZSt+CydGK\nlhOlpecCgYA7LTRA9phb0s+5rPeMM2NcbpckQMH4X2qiveButmvIiXXdY1hYZIs9\nYbZmG90ivWsXrgQ/RJARttQ+FFarXMHLgc9vJiBLEyIDZPi0yjNNGQB5d94i4a5+\njzmkSI5VsRas82xrl166ehyXJvXVU8qxqY6ZqjP0m3G8A2pofh4EXwKBgQC9uro6\n8WXLsQvZWQO81OLTX3AhcKm4cnIVXhyIBoHpfR1IOqaFm/s2C0D3cNlFypAom/i9\nRH+OFWFyAQuuBTI7fDqQ1HE0L/CXlUe7fo77jucbG1ZqJ/a0ZZCNDETnYCgeemP4\n+TAl/fD/Ukr65IPlB6R4GvL87BWXDk7Fon6uOQKBgQCbaFgo+Kc1V2zi6p/PYvNS\nmWnvAAT4Te4uLcOvF6/Yh01suQDRCaK+OikqKon4Uwn4B0/melKegaFLu4hDepZA\nPHWDxiTTW6m9ywQnat4UJ+M46vcdtpuVSQI3493qvlxStBXUfAURR4/g1IePDD4D\n7on0SmKuwU43QKN4dhbbDg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "adobe-sot@appspot.gserviceaccount.com",
+  "client_id": "113777082796874232856",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/adobe-sot%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

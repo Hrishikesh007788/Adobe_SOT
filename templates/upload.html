@@ -447,7 +447,8 @@
                 {% else %}
                 <span class="file-icon"><i class="far fa-file-alt"></i></span>
                 {% endif %}
-                <span class="file-name">{{ file[:16] }}...</span>
+               
+                <span class="file-name">{{ file|basename }}</span>
                 <button
                   class="btn btn-danger btn-sm delete-file-btn"
                   data-file="{{ file }}"
@@ -627,8 +628,8 @@
               throw new Error("Network response was not ok");
             }
           })
-          .then((message) => {
-            alert(message);
+          .then(() => {
+            alert("File deleted successffully!");
             location.reload(); // Reload the page after successful deletion
           })
           .catch((error) => {
