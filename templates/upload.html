@@ -516,7 +516,7 @@
           <p style="font-size: smaller; font-weight: bold;">Ask Me</p>
           {% if conversation_history %}
 
-          <div class="conversation-history-container">
+          <div class="conversation-history-container" id="conversation-container">
             <div class="conversation-history">
               {% for sender, message in conversation_history %}
               <div class="message">
@@ -577,6 +577,11 @@
     <!-- Animate.css -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
     <script>
+     function scrollToBottom() {
+    const conversationContainer = document.getElementById("conversation-container");
+    conversationContainer.scrollTop = conversationContainer.scrollHeight;
+  }
+  window.onload = scrollToBottom;
 
       
       function toggleChatCard() {
@@ -596,23 +601,7 @@
         });
       });
 
-      // function deleteFile(filename) {
-      //   fetch(`/delete/${filename}`, { method: "GET" })
-      //     .then((response) => {
-      //       if (response.ok) {
-      //         return response.text();
-      //       } else {
-      //         throw new Error("Network response was not ok");
-      //       }
-      //     })
-      //     .then((message) => {
-      //       alert(message);
-      //       location.reload(); // Reload the page after successful deletion
-      //     })
-      //     .catch((error) => {
-      //       alert(`Error occurred: ${error.message}`);
-      //     });
-      // }
+     
       function deleteFile(filename) {
         fetch(`/delete/${filename}`, {
           method: "POST", // Change the method to "POST"

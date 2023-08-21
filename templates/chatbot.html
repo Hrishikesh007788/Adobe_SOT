@@ -266,18 +266,17 @@
     <!-- Include Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
-      console.log("scripts.js loaded!");
-      function scrollToBottom() {
-        var chatWindow = document.getElementById("chat-body");
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        console.log("scrollToBottom function called!");
-      }
+     function scrollToBottom() {
+    const conversationContainer = document.getElementById("chat-window");
+    conversationContainer.scrollTop = conversationContainer.scrollHeight;
+  }
+  window.onload = scrollToBottom;
 
       $(document).ready(function () {
         // Toggle chat window when the chat icon is clicked
         $("#chat-icon").click(function () {
           $("#chat-window").toggle();
-          scrollToBottom();
+          
         });
 
         // Submit the chat form on button click
@@ -288,12 +287,12 @@
 
         // Automatically scroll to the bottom when the chat window is shown
         $("#chat-window").on("shown.bs.collapse", function () {
-          scrollToBottom();
+          
         });
 
         // Automatically scroll to the bottom on user input submission
         $("#chat-form").submit(function () {
-          scrollToBottom();
+          
         });
       });
     </script>
