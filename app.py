@@ -23,8 +23,8 @@ temp_dir = tempfile.TemporaryDirectory()
 bootstrap = Bootstrap(app)
 
 
-os.environ["OPENAI_API_KEY"] = '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'
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'adobe-sot-0ee3ee6f1950.json'
+os.environ["OPENAI_API_KEY"] = ''
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ''
 
 
 
@@ -60,7 +60,7 @@ def list_uploaded_files(bucket_name):
 
 
 def construct_index_from_gcs_bucket(bucket_name):
-    openai.api_key = "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"
+    openai.api_key = ""
     # set maximum input size
     max_input_size = 4096
     # set number of output tokens
