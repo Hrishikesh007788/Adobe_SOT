@@ -238,7 +238,7 @@
     </div>
     <!-- The chat icon -->
 
-    <div id="chat-window">
+    <div class = "conversation-history-container" id="chat-window">
       <div id="chat-header">Chatbot</div>
       <div id="chat-body">
         {% for sender, message in conversation_history_cb %}
@@ -266,34 +266,41 @@
     <!-- Include Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
-      console.log("scripts.js loaded!");
-      function scrollToBottom() {
-        var chatWindow = document.getElementById("chat-body");
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        console.log("scrollToBottom function called!");
-      }
+     
+     function scrollConversationToBottom() {
+  var conversationHistoryContainer = document.querySelector(".conversation-history-container");
+  conversationHistoryContainer.scrollTop = conversationHistoryContainer.scrollHeight;
+}
+window.onload = scrollConversationToBottom;
 
       $(document).ready(function () {
         // Toggle chat window when the chat icon is clicked
         $("#chat-icon").click(function () {
           $("#chat-window").toggle();
-          scrollToBottom();
+          
+         
         });
+
+
+
+
+
 
         // Submit the chat form on button click
         $("#chat-button").click(function (event) {
           event.preventDefault();
           $("#chat-form").submit();
+          
         });
 
         // Automatically scroll to the bottom when the chat window is shown
         $("#chat-window").on("shown.bs.collapse", function () {
-          scrollToBottom();
+          
         });
 
         // Automatically scroll to the bottom on user input submission
         $("#chat-form").submit(function () {
-          scrollToBottom();
+          
         });
       });
     </script>
