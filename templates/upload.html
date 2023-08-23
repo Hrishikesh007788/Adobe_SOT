@@ -32,6 +32,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
       rel="stylesheet"
     />
+    
 
     <style>
       body {
@@ -199,11 +200,13 @@
 
       #uploaded-files-card {
         margin-left: 50px;
+        height: 350px;
       }
 
       #upload-files-card {
         padding-bottom: 0%;
         width: 90%;
+        height: 220px;
       }
       #question {
         margin-top: 15px;
@@ -354,7 +357,8 @@
       <div class="container">
         <i class="fas fa-brain fa-lg" style="color: #ffffff"></i>
         <a class="navbar-brand" href="/" style="color: #248dff; margin: 1px; margin-left: 5px;">d</a>
-          <a class="navbar-brand" href="/" style="color: #50e172; margin: 1px;">a</a>
+          <!-- <a class="navbar-brand" href="/" style="color: #50e172; margin: 1px;">a</a> -->
+          <img src="../static/adobe_logo.png" alt="adobe_logo" style="height: 18px;">
           <a class="navbar-brand" href="/" style="color: #8d1fcc; margin: 1px;">t</a>
           <a class="navbar-brand" href="/" style="color: #e67a27; margin: 1px;">a</a>
           <a class="navbar-brand" href="/" style="color: #0b58bb; margin: 1px;">S</a>
@@ -476,16 +480,13 @@
               action="{{ url_for('upload_file') }}"
               enctype="multipart/form-data"
             >
+            <div class="form-group text-center">
+            <img src="../static/upload.png" alt="upload image" style="height: 80px;">
+          </div>
               <div class="form-group">
-                <input
-                  type="file"
-                  class="form-control-file"
-                  id="file"
-                  name="file"
-                  accept=".txt, .pdf, .docx, .pptx, .json"
-                  multiple
-                />
+                <input class="form-control form-control-sm" id="file" type="file" multiple  accept=".txt, .pdf, .docx, .pptx, .json" name="file">
               </div>
+              
 
               <div class="form-group link-section">
                 <label id="upload-link-section" for="link"
