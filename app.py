@@ -276,6 +276,7 @@ def user_ask():
 
         # Ask the AI and get the response
         response = ask_ai(user_query)
+       
         conversation_history_user.append(("AI", response))  # Add AI's response to the conversation history
 
         if not uploaded_files:
